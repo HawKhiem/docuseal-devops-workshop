@@ -1,4 +1,4 @@
-# TODO: Give a unique name (e.g. server-<your-name>)
+# TODO: Give a unique name (e.g. server-<your-name>) to avoid conflict
 name        = "server-khiem" 
 server_type = "cx23"
 location    = "fsn1"

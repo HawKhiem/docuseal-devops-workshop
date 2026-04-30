@@ -27,13 +27,16 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Set lowercase repository name
+      run: echo "REPO_LC=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
     - name: Build and push Docker image
       uses: docker/build-push-action@v7
       with:
         context: .
         push: true
         platforms: linux/amd64
-        tags: ghcr.io/${{ github.repository }}:latest
+        tags: ghcr.io/${{ env.REPO_LC }}:latest
         # Layer caching: speeds up rebuilds by reusing unchanged layers from a previous push
-        cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
-        cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache,mode=max
+        cache-from: type=registry,ref=ghcr.io/${{ env.REPO_LC }}:cache
+        cache-to: type=registry,ref=ghcr.io/${{ env.REPO_LC }}:cache,mode=max
